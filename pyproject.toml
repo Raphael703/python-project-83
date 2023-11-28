@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
-authors = ["Raphael <raphael.mukha@gmail.com>"]
+description = "The 'page analyzer' package provides tools for analyzing web pages for adherence to SEO standardsand."
+authors = ["Rafael <raphael.mukha@gmail.com>"]
 readme = "README.md"
 packages = [{include = "page_analyzer"}]
 
