@@ -46,5 +46,13 @@ def show_url_page(url_id):
     return render_template('urls/url.html', url=url)
 
 
+@app.get('/urls')
+def show_urls_page():
+    conn = db.connect_db(app)
+    urls = db.get_urls(conn)
+    db.close(conn)
+    return render_template('urls/urls.html', urls=urls)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

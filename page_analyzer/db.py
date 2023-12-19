@@ -29,3 +29,11 @@ def get_url(conn, url_id):
             (url_id,)
         )
         return curs.fetchone()
+
+
+def get_urls(conn):
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        curs.execute(
+            'SELECT * FROM urls ORDER BY id DESC;'
+        )
+        return curs.fetchall()
