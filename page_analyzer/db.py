@@ -1,4 +1,5 @@
 import psycopg2
+from psycopg2.extras import NamedTupleCursor
 
 
 def connect_db(app):
@@ -19,3 +20,12 @@ def insert_url(conn, url):
             'INSERT INTO urls (name) VALUES (%s);',
             (url,)
         )
+
+
+def get_url(conn, url_id):
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        curs.execute(
+            'SELECT * FROM urls WHERE id = (%s);',
+            (url_id,)
+        )
+        return curs.fetchone()

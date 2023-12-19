@@ -38,5 +38,13 @@ def add_url():
         return render_template('index.html', error='URL не был предоставлен')
 
 
+@app.route('/urls/<int:url_id>')
+def show_url_page(url_id):
+    conn = db.connect_db(app)
+    url = db.get_url(conn, url_id)
+    db.close(conn)
+    return render_template('urls/url.html', url=url)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
