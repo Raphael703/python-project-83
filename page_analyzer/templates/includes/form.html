@@ -1,0 +1,5 @@
+<form action="{{ url_for('add_url') }}" method="post" class="d-flex justify-content-center">
+    <input type="text" name="url" placeholder="https://www.example.com" class="form-control form-control-lg"
+           value="{{ url }}">
+    <input type="submit" class="btn btn-primary btn-lg ms-3 px-5 text-uppercase mx-3" value="Добавить">
+</form>
