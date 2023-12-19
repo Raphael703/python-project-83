@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 from page_analyzer import db
+from page_analyzer.utils import validate_url
 
 app = Flask(__name__)
 
@@ -21,6 +22,11 @@ def index():
 @app.post('/urls')
 def add_url():
     url = request.form['url']
+    errors = validate_url(url)
+    if errors:
+        for error in errors:
+            flash(error, 'danger')
+        return render_template('index.html', url=url)
 
     if url:
         conn = db.connect_db(app)
