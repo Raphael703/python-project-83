@@ -57,11 +57,13 @@ def get_checks_by_url_id(conn, url_id):
         return curs.fetchall()
 
 
-def get_urls_with_last_check_date(conn):
+def get_urls_with_last_check_date_and_status_code(conn):
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
         curs.execute(
             'SELECT DISTINCT ON (u.id) '
-            'u.id, u.name, uc.created_at AS last_check_date '
+            'u.id, u.name, '
+            'uc.created_at AS last_check_date, '
+            'uc.status_code AS last_status_code '
             'FROM urls u '
             'LEFT JOIN url_checks uc ON u.id = uc.url_id '
             'ORDER BY u.id DESC, uc.created_at DESC;'
