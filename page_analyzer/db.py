@@ -15,11 +15,13 @@ def close(conn):
 
 
 def insert_url(conn, url):
-    with conn.cursor() as curs:
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
         curs.execute(
-            'INSERT INTO urls (name) VALUES (%s);',
+            'INSERT INTO urls (name) VALUES (%s) '
+            'RETURNING id;',
             (url,)
         )
+        return curs.fetchone().id
 
 
 def get_url(conn, url_id):
