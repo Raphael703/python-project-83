@@ -23,10 +23,9 @@ def index():
 @app.post('/urls')
 def add_url():
     url = request.form['url']
-    errors = validate_url(url)
-    if errors:
-        for error in errors:
-            flash(error, 'danger')
+    error_msg = validate_url(url)
+    if error_msg:
+        flash(error_msg, 'danger')
         return render_template('index.html', url=url)
 
     if url:
