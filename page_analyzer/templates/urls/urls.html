@@ -1,23 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="table-responsive">
-  <table class="table table-bordered table-hover text-nowrap" data-test="urls">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Имя</th>
-      <th>Дата создания</th>
-    </tr>
-    </thead>
-    <tbody>
-      {% for url in urls %}
+    <table class="table table-bordered table-hover text-nowrap" data-test="urls">
+        <thead>
         <tr>
-          <td>{{ url.id }}</td>
-          <td>{{ url.name }}</td>
-          <td>{{ url.created_at }}</td>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Дата создания</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        {% for url_data in urls_data %}
+        <tr>
+            <td>{{ url_data.id }}</td>
+            <td>
+                <a href="{{ url_for('show_url_page', url_id = url_data.id) }}"> {{ url_data.name }}</a>
+            </td>
+            {% if url_data.last_check_date %}
+                <td>{{ url_data.last_check_date }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
