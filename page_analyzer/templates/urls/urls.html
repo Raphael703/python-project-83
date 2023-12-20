@@ -7,6 +7,7 @@
             <th>ID</th>
             <th>Имя</th>
             <th>Дата создания</th>
+            <th>Последний код ответа</th>
         </tr>
         </thead>
         <tbody>
@@ -18,6 +19,11 @@
             </td>
             {% if url_data.last_check_date %}
                 <td>{{ url_data.last_check_date }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if url_data.last_status_code %}
+                <td>{{ url_data.last_status_code }}</td>
             {% else %}
                 <td></td>
             {% endif %}
