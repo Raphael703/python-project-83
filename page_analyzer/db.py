@@ -50,7 +50,7 @@ def insert_url_check(conn, url_id, status_code):
 def get_checks_by_url_id(conn, url_id):
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
         curs.execute(
-            'SELECT id, created_at FROM url_checks '
+            'SELECT id, created_at, status_code FROM url_checks '
             'WHERE url_id = (%s) ORDER BY id DESC;',
             (url_id,)
         )
