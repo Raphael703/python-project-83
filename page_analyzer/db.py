@@ -31,6 +31,15 @@ def get_url(conn, url_id):
         return curs.fetchone()
 
 
+def get_url_by_name(conn, name):
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        curs.execute(
+            'SELECT * FROM urls WHERE name = (%s);',
+            (name,)
+        )
+        return curs.fetchone()
+
+
 def get_urls(conn):
     with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
         curs.execute(
