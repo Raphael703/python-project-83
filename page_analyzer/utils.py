@@ -1,4 +1,4 @@
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import urlparse
 
 from validators.url import url as url_validator
 
@@ -9,11 +9,7 @@ def normalize_url(input_url):
     normalized_scheme = parsed_url.scheme.lower()
     normalized_host = parsed_url.hostname.lower()
 
-    normalized_url = urlunparse(
-        (normalized_scheme, normalized_host, parsed_url.path,
-         parsed_url.params, parsed_url.query, parsed_url.fragment)
-    )
-    return normalized_url
+    return f'{normalized_scheme}://{normalized_host}'
 
 
 def validate_url(input_url):
