@@ -27,6 +27,7 @@
         <tr>
             <th>ID</th>
             <th>Дата создания</th>
+            <th>Код ответа</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
         <tr>
             <td>{{ url_check.id }}</td>
             <td>{{ url_check.created_at }}</td>
+            <td>{{ url_check.status_code }}</td>
         </tr>
         {% endfor %}
         </tbody>
