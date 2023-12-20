@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 
 from page_analyzer import db
 from page_analyzer.site_checker import get_status_code
-from page_analyzer.utils import validate_url
+from page_analyzer.utils import validate_url, normalize_url
 
 app = Flask(__name__)
 
@@ -28,14 +28,20 @@ def add_url():
         flash(error_msg, 'danger')
         return render_template('index.html', url=url)
 
-    if url:
-        conn = db.connect_db(app)
-        db.insert_url(conn, url)
-        db.commit(conn)
-        db.close(conn)
-        return redirect(url_for('index'))
+    conn = db.connect_db(app)
+    normalized_url = normalize_url(url)
+    existed_url = db.get_url_by_name(conn, normalized_url)
+
+    if existed_url:
+        flash('Данный URL уже существует', 'info')
+        url_id = existed_url.id
     else:
-        return render_template('index.html', error='URL не был предоставлен')
+        url_id = db.insert_url(conn, normalized_url)
+        db.commit(conn)
+        flash('URL успешно добавлен', 'success')
+
+    db.close(conn)
+    return redirect(url_for('show_url_page', url_id=url_id))
 
 
 @app.route('/urls/<int:url_id>')
