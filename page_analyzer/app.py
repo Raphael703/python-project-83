@@ -42,8 +42,9 @@ def add_url():
 def show_url_page(url_id):
     conn = db.connect_db(app)
     url = db.get_url(conn, url_id)
+    url_checks = db.get_checks_by_url_id(conn, url_id)
     db.close(conn)
-    return render_template('urls/url.html', url=url)
+    return render_template('urls/url.html', url=url, url_checks=url_checks)
 
 
 @app.get('/urls')

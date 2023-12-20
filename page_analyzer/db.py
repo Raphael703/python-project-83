@@ -45,3 +45,13 @@ def insert_url_check(conn, url_id):
             'INSERT INTO url_checks (url_id) VALUES (%s);',
             (url_id,)
         )
+
+
+def get_checks_by_url_id(conn, url_id):
+    with conn.cursor(cursor_factory=NamedTupleCursor) as curs:
+        curs.execute(
+            'SELECT id, created_at FROM url_checks '
+            'WHERE url_id = (%s) ORDER BY id DESC;',
+            (url_id,)
+        )
+        return curs.fetchall()
