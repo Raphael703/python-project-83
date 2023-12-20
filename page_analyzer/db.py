@@ -39,11 +39,11 @@ def get_urls(conn):
         return curs.fetchall()
 
 
-def insert_url_check(conn, url_id):
+def insert_url_check(conn, url_id, status_code):
     with conn.cursor() as curs:
         curs.execute(
-            'INSERT INTO url_checks (url_id) VALUES (%s);',
-            (url_id,)
+            'INSERT INTO url_checks (url_id, status_code) VALUES (%s, %s);',
+            (url_id, status_code)
         )
 
 
