@@ -37,3 +37,11 @@ def get_urls(conn):
             'SELECT * FROM urls ORDER BY id DESC;'
         )
         return curs.fetchall()
+
+
+def insert_url_check(conn, url_id):
+    with conn.cursor() as curs:
+        curs.execute(
+            'INSERT INTO url_checks (url_id) VALUES (%s);',
+            (url_id,)
+        )

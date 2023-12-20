@@ -54,5 +54,15 @@ def show_urls_page():
     return render_template('urls/urls.html', urls=urls)
 
 
+@app.route('/urls/<int:url_id>/checks', methods=['POST'])
+def add_url_check(url_id):
+    conn = db.connect_db(app)
+    db.insert_url_check(conn, url_id)
+    db.commit(conn)
+    db.close(conn)
+
+    return redirect(url_for('show_url_page', url_id=url_id))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
