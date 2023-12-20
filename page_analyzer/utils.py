@@ -13,13 +13,9 @@ def normalize_url(input_url):
 
 
 def validate_url(input_url):
-    errors_stack = []
-
+    if not input_url:
+        return 'URL обязателен для заполнения'
+    if not url_validator(input_url):
+        return 'Введенный URL некорректен'
     if len(input_url) > 255:
-        errors_stack.append('Введенный URL превышает длину в 255 символов')
-    elif not input_url:
-        errors_stack.append('URL обязателен для заполнения')
-    elif not url_validator(input_url):
-        errors_stack.append('Введенный URL некорректен ')
-
-    return errors_stack
+        return 'Введенный URL превышает длину в 255 символов'
