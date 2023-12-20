@@ -51,7 +51,7 @@ def show_url_page(url_id):
 @app.get('/urls')
 def show_urls_page():
     conn = db.connect_db(app)
-    urls_data = db.get_urls_with_last_check_date(conn)
+    urls_data = db.get_urls_with_last_check_date_and_status_code(conn)
     db.close(conn)
     return render_template('urls/urls.html', urls_data=urls_data)
 
