@@ -50,9 +50,9 @@ def show_url_page(url_id):
 @app.get('/urls')
 def show_urls_page():
     conn = db.connect_db(app)
-    urls = db.get_urls(conn)
+    urls_data = db.get_urls_with_last_check_date(conn)
     db.close(conn)
-    return render_template('urls/urls.html', urls=urls)
+    return render_template('urls/urls.html', urls_data=urls_data)
 
 
 @app.route('/urls/<int:url_id>/checks', methods=['POST'])
