@@ -1,10 +1,11 @@
 import os
 
+import requests
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 from page_analyzer import db
-from page_analyzer.site_checker import get_status_code
+from page_analyzer.page_checker import extract_page_data
 from page_analyzer.utils import validate_url, normalize_url
 
 app = Flask(__name__)
@@ -62,15 +63,18 @@ def show_urls_page():
 
 
 @app.route('/urls/<int:url_id>/checks', methods=['POST'])
-def add_url_check(url_id):
+def process_url_check(url_id):
     conn = db.connect_db(app)
     url = db.get_url(conn, url_id)
-    status_code = get_status_code(url.name)
-    if status_code is None:
+    try:
+        response = requests.get(url.name)
+        response.raise_for_status()
+    except requests.RequestException:
         flash('Произошла ошибка при проверке', 'danger')
         return redirect(url_for('show_url_page', url_id=url_id))
 
-    db.insert_url_check(conn, url_id, status_code)
+    page_data = extract_page_data(response)
+    db.insert_url_check(conn, url_id, page_data)
     db.commit(conn)
     db.close(conn)
 
