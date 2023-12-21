@@ -81,5 +81,11 @@ def process_url_check(url_id):
     return redirect(url_for('show_url_page', url_id=url_id))
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('errors/404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('errors/500.html'), 500
