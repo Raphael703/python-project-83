@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block title %} Сайт: {{ url.name }} {% endblock %}
 {% block content %}
 <div class="table-responsive">
     <table class="table table-bordered table-hover text-nowrap" data-test="url">
@@ -18,7 +19,7 @@
         </tbody>
     </table>
 </div>
-<form method="post" action="{{ url_for('add_url_check', url_id=url.id) }}">
+<h2 class="mt-5 mb-3">Проверки</h2>
 <form method="post" action="{{ url_for('process_url_check', url_id=url.id) }}">
     <input type="submit" class="btn btn-primary" value="Запустить проверку">
 </form>
@@ -32,7 +33,6 @@
             <th>title</th>
             <th>description</th>
             <th>Дата создания</th>
-            <th>Код ответа</th>
         </tr>
         </thead>
         <tbody>
@@ -44,7 +44,6 @@
             <td>{{ url_check.title }}</td>
             <td>{{ url_check.description }}</td>
             <td>{{ url_check.created_at }}</td>
-            <td>{{ url_check.status_code }}</td>
         </tr>
         {% endfor %}
         </tbody>
