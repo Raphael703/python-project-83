@@ -77,7 +77,7 @@ def process_url_check(url_id):
     db.insert_url_check(conn, url_id, page_data)
     db.commit(conn)
     db.close(conn)
-
+    flash('Страница успешно проверена', 'success')
     return redirect(url_for('show_url_page', url_id=url_id))
 
 
