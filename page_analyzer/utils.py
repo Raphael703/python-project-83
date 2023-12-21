@@ -16,6 +16,6 @@ def validate_url(input_url):
     if not input_url:
         return 'URL обязателен для заполнения'
     if not url_validator(input_url):
-        return 'Введенный URL некорректен'
+        return 'Некорректный URL'
     if len(input_url) > 255:
         return 'Введенный URL превышает длину в 255 символов'
