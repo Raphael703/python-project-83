@@ -28,7 +28,7 @@ def add_url():
     error_msg = validate_url(url)
     if error_msg:
         flash(error_msg, 'danger')
-        return render_template('index.html', url=url)
+        return render_template('index.html', url=url), 422
 
     conn = db.connect_db(app)
     normalized_url = normalize_url(url)
