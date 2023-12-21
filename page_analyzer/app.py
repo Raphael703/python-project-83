@@ -35,12 +35,12 @@ def add_url():
     existed_url = db.get_url_by_name(conn, normalized_url)
 
     if existed_url:
-        flash('Данный URL уже существует', 'info')
+        flash('Страница уже существует', 'info')
         url_id = existed_url.id
     else:
         url_id = db.insert_url(conn, normalized_url)
         db.commit(conn)
-        flash('URL успешно добавлен', 'success')
+        flash('Страница успешно добавлена', 'success')
 
     db.close(conn)
     return redirect(url_for('show_url_page', url_id=url_id))
